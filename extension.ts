@@ -145,8 +145,9 @@ export function activate() {
             let reuseCmdOption: string = openInNewWindow ? "" : " -r";
 
             if (process.platform == 'darwin') {
-              exec(('open' + ' -b \'com.microsoft.VSCode\' ' + projectPath + reuseCmdOption));
-              // exec(('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath + reuseCmdOption));
+              console.log(exec('open' + ' -a ' + codePath + " " + projectPath + reuseCmdOption));
+              // exec('open' + ' -b \'com.microsoft.VSCode\' ' + projectPath + reuseCmdOption);
+              // exec('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath + reuseCmdOption);
             } else {
               exec(codePath + " " + projectPath + reuseCmdOption);
             }
