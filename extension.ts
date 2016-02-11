@@ -145,39 +145,10 @@ export function activate() {
             let reuseCmdOption: string = openInNewWindow ? "" : " -r";
 
             if (process.platform == 'darwin') {
-              console.log(exec('open' + ' -a ' + codePath + " " + projectPath + reuseCmdOption));
-              // exec('open' + ' -b \'com.microsoft.VSCode\' ' + projectPath + reuseCmdOption);
-              // exec('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath + reuseCmdOption);
+              exec('open' + ' -a ' + codePath + " " + projectPath + reuseCmdOption);
             } else {
               exec(codePath + " " + projectPath + reuseCmdOption);
             }
-            // var child = execFile("reattach-to-user-namespace -l open -n -b com.microsoft.VSCode --args" + " " + projectPath + reuseCmdOption, function(error, stdout, stderr) {
-            //var child = exec(("open -n -b \'com.microsoft.VSCode\' --args" + " " + projectPath + reuseCmdOption), function(error, stdout, stderr) {
-            // var child = exec(('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath), function(error, stdout, stderr) {
-                // if (stdout !== null) {
-                //     console.log(stdout.toString());
-                // }
-                
-                // if (stderr !== null) {
-                //     console.log(stderr.toString());
-                // }
-                
-                // if (error !== null) {
-                //     console.log('exec error: ' + error);
-                // } else {
-                //     // setStatusBarText('Launching', qpSelection.label);
-                //     // switch(process.platform) {
-                //     //   case 'darwin':
-                //     //     exec('open ' + outFile);
-                //     //     break;
-                //     //   case 'linux':
-                //     //     exec('xdg-open ' + outFile);
-                //     //     break;
-                //     //   default:
-                //     //     exec(outFile);
-                //     // }
-                // }
-            // });
         });
     });
     
