@@ -108,7 +108,7 @@ export function activate() {
             if (items == null) {
                 return;
             }      
-            //     items = JSON.parse(fs.readFileSync(projectFile).toString());                
+            //     items = JSON.parse(fs.readFileSync(projectFile).toString());
         } else {
             vscode.window.showInformationMessage('No projects saved yet!');
             return;
@@ -144,10 +144,42 @@ export function activate() {
             let openInNewWindow: boolean = vscode.workspace.getConfiguration('projectManager').get('openInNewWindow', true);
             let reuseCmdOption: string = openInNewWindow ? "" : " -r";
 
-            exec(codePath + " " + projectPath + reuseCmdOption);
+            if (process.platform == 'darwin') {
+              exec(('open' + ' -b \'com.microsoft.VSCode\' ' + projectPath + reuseCmdOption));
+              // exec(('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath + reuseCmdOption));
+            } else {
+              exec(codePath + " " + projectPath + reuseCmdOption);
+            }
+            // var child = execFile("reattach-to-user-namespace -l open -n -b com.microsoft.VSCode --args" + " " + projectPath + reuseCmdOption, function(error, stdout, stderr) {
+            //var child = exec(("open -n -b \'com.microsoft.VSCode\' --args" + " " + projectPath + reuseCmdOption), function(error, stdout, stderr) {
+            // var child = exec(('open' + ' -a \'/Applications/Visual\ Studio\ Code.app\' ' + projectPath), function(error, stdout, stderr) {
+                // if (stdout !== null) {
+                //     console.log(stdout.toString());
+                // }
+                
+                // if (stderr !== null) {
+                //     console.log(stderr.toString());
+                // }
+                
+                // if (error !== null) {
+                //     console.log('exec error: ' + error);
+                // } else {
+                //     // setStatusBarText('Launching', qpSelection.label);
+                //     // switch(process.platform) {
+                //     //   case 'darwin':
+                //     //     exec('open ' + outFile);
+                //     //     break;
+                //     //   case 'linux':
+                //     //     exec('xdg-open ' + outFile);
+                //     //     break;
+                //     //   default:
+                //     //     exec(outFile);
+                //     // }
+                // }
+            // });
         });
     });
-
+    
 
     vscode.commands.registerCommand('projectManager.editProjects', () => {
         let appdata = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support' : '/var/local');
